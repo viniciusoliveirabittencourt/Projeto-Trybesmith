@@ -1,18 +1,16 @@
-import productMod from "../models/productMod";
-import { IProductGet, IProductPost } from "../interface/products.interface";
+import ProductMod from '../models/productMod';
+import { IProductGet, IProductPost } from '../interface/products.interface';
 
-export default class productSer {
-  private pM = new productMod();
-
-  public getAll = async (): Promise<IProductGet[]> => {
-    const returnAll = await this.pM.getAll();
+export default class ProductSer {
+  static async getAll(): Promise<IProductGet[]> {
+    const returnAll = await ProductMod.getAll();
 
     return returnAll;
-  };
+  }
 
-  public createdProduct = async (product: IProductPost): Promise<IProductGet> => {
-    const returnpM = await this.pM.creatProduct(product);
+  static async createdProduct(product: IProductPost): Promise<IProductGet> {
+    const returnpM = await ProductMod.creatProduct(product);
 
     return returnpM;
-  };
-};
+  }
+}

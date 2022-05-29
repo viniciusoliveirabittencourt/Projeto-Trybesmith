@@ -1,20 +1,18 @@
-import productSer from "../services/productSer";
 import { Request, Response } from 'express';
-import { IProductGet, IProductPost } from "../interface/products.interface";
+import ProductSer from '../services/productSer';
+import { IProductGet, IProductPost } from '../interface/products.interface';
 
-export default class producCon {
-  private pS = new productSer();
-
-  public getAll = async (_req: Request, res: Response): Promise<Response> => {
-    const returnPs: IProductGet[] = await this.pS.getAll();
+export default class ProducCon {
+  static async getAll(_req: Request, res: Response): Promise<Response> {
+    const returnPs: IProductGet[] = await ProductSer.getAll();
 
     return res.status(200).send(returnPs);
-  };
+  }
 
-  public postProduct = async (req: Request, res: Response) => {
-    const body: IProductPost = req.body;
-    const returnPs: IProductGet = await this.pS.createdProduct(body);
+  static async postProduct(req: Request, res: Response): Promise<Response> {
+    const bodyDes: IProductPost = req.body;
+    const returnPs: IProductGet = await ProductSer.createdProduct(bodyDes);
 
     return res.status(201).send(returnPs);
-  };
-};
+  }
+}
