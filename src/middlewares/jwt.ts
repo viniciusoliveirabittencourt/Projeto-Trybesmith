@@ -1,5 +1,5 @@
-import { sign, verify, SignOptions, JwtPayload } from "jsonwebtoken";
-import IUser from "../interface/users.interface";
+import { sign, verify, SignOptions, JwtPayload } from 'jsonwebtoken';
+import IUser from '../interface/users.interface';
 
 export default class TokenClass {
   private JWT_SECRET = 'SenhaSuperSecretaUau}@2ehuughawgfabywgafahdiaw';
@@ -10,7 +10,7 @@ export default class TokenClass {
     };
 
     return sign({ data: user }, this.JWT_SECRET, jwtConfig);
-  };
+  }
 
   public verifyToken(token: string): string | JwtPayload | undefined {
     try {
@@ -18,5 +18,5 @@ export default class TokenClass {
     } catch (e: unknown) {
       return undefined;
     }
-  };
-};
+  }
+}

@@ -13,4 +13,4 @@ export default class UserMod {
 
     return insertUser.affectedRows;
   }
-};
+}

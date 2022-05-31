@@ -1,7 +1,7 @@
-import UserMod from "../models/userMod";
+import UserMod from '../models/userMod';
 import IUser from '../interface/users.interface';
-import IReturnValidate from "../interface/middlewares.interface";
-import TokenClass from "../middlewares/jwt";
+import { IReturnValidate } from '../interface/middlewares.interface';
+import TokenClass from '../middlewares/jwt';
 
 export default class UserSer {
   private tokenFuncs = new TokenClass();
@@ -16,5 +16,5 @@ export default class UserSer {
     const newUserToken = this.tokenFuncs.createToken(user);
 
     return { status: 201, message: newUserToken };
-  };
-};
+  }
+}

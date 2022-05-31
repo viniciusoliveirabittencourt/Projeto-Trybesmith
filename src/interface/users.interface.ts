@@ -3,4 +3,4 @@ export default interface IUser {
   classe: string;
   level: number;
   password: string;
-};
+}
