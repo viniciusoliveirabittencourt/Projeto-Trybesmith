@@ -8,15 +8,6 @@ const mid = new Mid();
 
 route.post(
   '/',
-  Mid.verifyUsername.bind(mid),
-  Mid.verifyPassword.bind(mid),
-  Mid.verifyLevel.bind(mid),
-  Mid.verifyClasse.bind(mid),
-  userCon.postUser.bind(userCon),
-);
-
-route.post(
-  '/login',
   Mid.bodyLoginUser.bind(mid),
   userCon.loginUser.bind(userCon),
 );

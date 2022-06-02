@@ -1,5 +1,5 @@
 import UserMod from '../models/userMod';
-import IUser from '../interface/users.interface';
+import { IUser } from '../interface/users.interface';
 import { IReturnValidate } from '../interface/middlewares.interface';
 import TokenClass from '../middlewares/jwt';
 
@@ -16,5 +16,24 @@ export default class UserSer {
     const newUserToken = this.tokenFuncs.createToken(user);
 
     return { status: 201, message: newUserToken };
+  }
+
+  public async loginUsuario(userName: string, passw: string): Promise<IReturnValidate> {
+    const user = await UserMod.getUser(userName);
+
+    if (!user || passw !== user.password) {
+      return { status: 401, message: 'Username or password invalid' };
+    }
+
+    const objUser: IUser = {
+      username: user.username,
+      classe: user.classe,
+      level: user.level,
+      password: user.password,
+    };
+
+    const userToken = this.tokenFuncs.createToken(objUser);
+
+    return { status: 200, message: userToken };
   }
 }

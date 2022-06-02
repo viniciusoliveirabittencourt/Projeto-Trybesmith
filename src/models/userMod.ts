@@ -1,6 +1,6 @@
-import { ResultSetHeader } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import conn from './connection';
-import IUser from '../interface/users.interface';
+import { IUser } from '../interface/users.interface';
 
 export default class UserMod {
   static async insertUser(user: IUser): Promise<number> {
@@ -12,5 +12,14 @@ export default class UserMod {
     );
 
     return insertUser.affectedRows;
+  }
+
+  static async getUser(username: string): Promise<RowDataPacket | IUser | undefined> {
+    const [user] = await conn.execute<RowDataPacket[]>(
+      'SELECT * FROM Trybesmith.Users WHERE username = ?',
+      [username],
+    );
+
+    return user[0];
   }
 }

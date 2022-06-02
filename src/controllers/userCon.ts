@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
-import IUser from '../interface/users.interface';
 import { IReturnValidate } from '../interface/middlewares.interface';
+import { ILoginUser, IUser } from '../interface/users.interface';
 import UserSer from '../services/userSer';
 
 export default class UserCon {
@@ -8,8 +8,19 @@ export default class UserCon {
 
   public async postUser(req: Request, res: Response): Promise<Response> {
     const bodyDes: IUser = req.body;
-    const insertUser: IReturnValidate = await this.uS.cadastrarUsuario(bodyDes);
+    const { status, message }: IReturnValidate = await this.uS.cadastrarUsuario(bodyDes);
 
-    return res.status(insertUser.status).send({ token: insertUser.message });
+    return res.status(status).send({ token: message });
+  }
+
+  public async loginUser(req: Request, res: Response) {
+    const { username, password }: ILoginUser = req.body;
+    const { status, message }: IReturnValidate = await this.uS.loginUsuario(username, password);
+
+    if (status === 200) {
+      return res.status(status).send({ token: message });
+    }
+
+    return res.status(status).send({ message });
   }
 }

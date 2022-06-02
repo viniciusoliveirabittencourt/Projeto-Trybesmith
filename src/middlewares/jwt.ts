@@ -1,5 +1,5 @@
 import { sign, verify, SignOptions, JwtPayload } from 'jsonwebtoken';
-import IUser from '../interface/users.interface';
+import { IUser } from '../interface/users.interface';
 
 export default class TokenClass {
   private JWT_SECRET = 'SenhaSuperSecretaUau}@2ehuughawgfabywgafahdiaw';

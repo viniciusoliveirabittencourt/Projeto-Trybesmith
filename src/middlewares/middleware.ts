@@ -5,7 +5,7 @@ import {
   IReturnValidate,
   IValidAttNumber,
 } from '../interface/middlewares.interface';
-import IUser from '../interface/users.interface';
+import { IUser, ILoginUser } from '../interface/users.interface';
 
 export default class Middleware {
   static validAttStr({ att, attName, lengthString }: IValidAttString): IReturnValidate | void {
@@ -64,7 +64,8 @@ export default class Middleware {
     const obj: IUser = req.body;
   }
   */
-  static verifyUsername(req: Request, res: Response, next: NextFunction) {
+  static verifyUsername(req: Request, res: Response, next: NextFunction)
+    : Response | void {
     const { username }: IUser = req.body;
 
     const validUsername = Middleware
@@ -77,7 +78,8 @@ export default class Middleware {
     next();
   }
 
-  static verifyClasse(req: Request, res: Response, next: NextFunction) {
+  static verifyClasse(req: Request, res: Response, next: NextFunction)
+    : Response | void {
     const { classe }: IUser = req.body;
 
     const validClasse = Middleware
@@ -90,7 +92,8 @@ export default class Middleware {
     next();
   }
 
-  static verifyLevel(req: Request, res: Response, next: NextFunction) {
+  static verifyLevel(req: Request, res: Response, next: NextFunction)
+    : Response | void {
     const { level }: IUser = req.body;
 
     const validLevel = Middleware
@@ -104,7 +107,8 @@ export default class Middleware {
     next();
   }
 
-  static verifyPassword(req: Request, res: Response, next: NextFunction) {
+  static verifyPassword(req: Request, res: Response, next: NextFunction)
+    : Response | void {
     const { password }: IUser = req.body;
 
     const validPassword = Middleware
@@ -112,6 +116,21 @@ export default class Middleware {
 
     if (validPassword) {
       return res.status(validPassword.status).send({ message: validPassword.message });
+    }
+
+    next();
+  }
+
+  static bodyLoginUser(req: Request, res: Response, next: NextFunction)
+    : Response | void {
+    const { username, password }: ILoginUser = req.body;
+
+    if (!username) {
+      return res.status(400).send({ message: '"username" is required' });
+    }
+
+    if (!password) {
+      return res.status(400).send({ message: '"password" is required' });
     }
 
     next();
