@@ -19,4 +19,14 @@ export default class ProductMod {
 
     return { id: createdProduct.insertId, name, amount };
   }
+
+  static async putProductsOrders(orderId: number, productId: number)
+    :Promise<number> {
+    const [putProduct] = await conn.execute<ResultSetHeader>(
+      'UPDATE Trybesmith.Products SET orderId = ? WHERE id = ?',
+      [orderId, productId],
+    );
+
+    return putProduct.affectedRows;
+  }
 }

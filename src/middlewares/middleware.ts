@@ -4,8 +4,10 @@ import {
   IValidAttString,
   IReturnValidate,
   IValidAttNumber,
+  IBodyProductIds,
 } from '../interface/middlewares.interface';
 import { IUser, ILoginUser } from '../interface/users.interface';
+import TokenClass from './jwt';
 
 export default class Middleware {
   static validAttStr({ att, attName, lengthString }: IValidAttString): IReturnValidate | void {
@@ -131,6 +133,44 @@ export default class Middleware {
 
     if (!password) {
       return res.status(400).send({ message: '"password" is required' });
+    }
+
+    next();
+  }
+
+  static validToken(req: Request, res: Response, next: NextFunction)
+    : Response | void {
+    const { authorization } = req.headers;
+    const token = new TokenClass();
+
+    if (!authorization) {
+      return res.status(401).send({ message: 'Token not found' });
+    }
+
+    const tokenReturnValidate = token.verifyToken(authorization);
+
+    if (!tokenReturnValidate) {
+      return res.status(401).send({ message: 'Invalid token' });
+    }
+
+    next();
+  }
+
+  static validPostOrdersBody(req: Request, res: Response, next: NextFunction)
+    : Response | void {
+    const { productsIds } = req.body as IBodyProductIds;
+    console.log(typeof productsIds);
+
+    if (!productsIds) {
+      return res.status(400).send({ message: '"productsIds" is required' });
+    }
+
+    if (!Array.isArray(productsIds)) {
+      return res.status(422).send({ message: '"productsIds" must be an array' });
+    }
+
+    if (productsIds.length === 0) {
+      return res.status(422).send({ message: '"productsIds" must include only numbers' });
     }
 
     next();

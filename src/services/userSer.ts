@@ -26,6 +26,7 @@ export default class UserSer {
     }
 
     const objUser: IUser = {
+      id: user.id,
       username: user.username,
       classe: user.classe,
       level: user.level,

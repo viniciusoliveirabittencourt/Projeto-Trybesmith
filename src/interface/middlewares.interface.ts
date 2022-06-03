@@ -14,3 +14,21 @@ export interface IValidAttNumber {
   attName: string;
   sizeNumber: number;
 }
+
+export interface IToken {
+  data: {
+    id: number;
+    username: string;
+    classe: string;
+    level: number;
+    password: string;
+  }
+}
+
+export interface IHeaders {
+  authorization: string;
+}
+
+export interface IBodyProductIds {
+  productsIds: number[];
+}
