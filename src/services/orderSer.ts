@@ -1,8 +1,8 @@
 import ProductMod from '../models/productMod';
 import OrderMod from '../models/orderMod';
-import { IOrders } from '../interface/orders.interface';
+import { IOrders } from '../interfaces/orders.interface';
 import TokenClass from '../middlewares/jwt';
-import { IToken } from '../interface/middlewares.interface';
+import { IToken } from '../interfaces/middlewares.interface';
 
 export default class OrderSer {
   static async getAllOrders(): Promise<IOrders[]> {

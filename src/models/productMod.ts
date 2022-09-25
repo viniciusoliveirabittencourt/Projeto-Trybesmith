@@ -1,6 +1,6 @@
 import { ResultSetHeader } from 'mysql2';
 import conn from './connection';
-import { IProductGet, IProductPost } from '../interface/products.interface';
+import { IProductGet, IProductPost } from '../interfaces/products.interface';
 
 export default class ProductMod {
   static async getAll(): Promise<IProductGet[]> {

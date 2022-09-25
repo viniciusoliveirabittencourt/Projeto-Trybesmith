@@ -1,12 +1,12 @@
 import { Response, Request, NextFunction } from 'express';
-import { IProductPost } from '../interface/products.interface';
+import { IProductPost } from '../interfaces/products.interface';
 import {
   IValidAttString,
   IReturnValidate,
   IValidAttNumber,
   IBodyProductIds,
-} from '../interface/middlewares.interface';
-import { IUser, ILoginUser } from '../interface/users.interface';
+} from '../interfaces/middlewares.interface';
+import { IUser, ILoginUser } from '../interfaces/users.interface';
 import TokenClass from './jwt';
 
 export default class Middleware {

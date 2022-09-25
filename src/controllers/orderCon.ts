@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IBodyProductIds, IHeaders } from '../interface/middlewares.interface';
+import { IBodyProductIds, IHeaders } from '../interfaces/middlewares.interface';
 import OrderSer from '../services/orderSer';
 
 export default class OrderCon {

@@ -1,6 +1,6 @@
 import { ResultSetHeader } from 'mysql2';
 import conn from './connection';
-import { IOrders } from '../interface/orders.interface';
+import { IOrders } from '../interfaces/orders.interface';
 
 export default class OrderMod {
   static async getAll(): Promise<IOrders[]> {

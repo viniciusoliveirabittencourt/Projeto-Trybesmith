@@ -1,6 +1,6 @@
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import conn from './connection';
-import { IUser } from '../interface/users.interface';
+import { IUser } from '../interfaces/users.interface';
 
 export default class UserMod {
   static async insertUser(user: IUser): Promise<number> {

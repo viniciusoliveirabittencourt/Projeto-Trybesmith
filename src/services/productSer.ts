@@ -1,5 +1,5 @@
 import ProductMod from '../models/productMod';
-import { IProductGet, IProductPost } from '../interface/products.interface';
+import { IProductGet, IProductPost } from '../interfaces/products.interface';
 
 export default class ProductSer {
   static async getAll(): Promise<IProductGet[]> {

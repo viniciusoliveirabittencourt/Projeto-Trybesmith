@@ -1,6 +1,6 @@
 import UserMod from '../models/userMod';
-import { IUser } from '../interface/users.interface';
-import { IReturnValidate } from '../interface/middlewares.interface';
+import { IUser } from '../interfaces/users.interface';
+import { IReturnValidate } from '../interfaces/middlewares.interface';
 import TokenClass from '../middlewares/jwt';
 
 export default class UserSer {

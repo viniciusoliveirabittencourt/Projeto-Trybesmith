@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import ProductSer from '../services/productSer';
-import { IProductGet, IProductPost } from '../interface/products.interface';
+import { IProductGet, IProductPost } from '../interfaces/products.interface';
 
 export default class ProducCon {
   static async getAll(_req: Request, res: Response): Promise<Response> {

@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
-import { IReturnValidate } from '../interface/middlewares.interface';
-import { ILoginUser, IUser } from '../interface/users.interface';
+import { IReturnValidate } from '../interfaces/middlewares.interface';
+import { ILoginUser, IUser } from '../interfaces/users.interface';
 import UserSer from '../services/userSer';
 
 export default class UserCon {
