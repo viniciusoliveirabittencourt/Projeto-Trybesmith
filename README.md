@@ -1,6 +1,6 @@
 # Boas vindas ao meu repositório do projeto Trybesmith!
 
-O projeto Trybesmith foi o primeiro projeto da Trybe em relação à TrypeScript. O objetivo era colocar a mão na massa em relação ao TypeScript e testar se iríamos conseguir desenvolver um projeto Express em TypeScript. A baixo se encontram os requisitos e o passo a passo para a resolução dos mesmos.
+O projeto Trybesmith foi o primeiro projeto da Trybe em relação à TrypeScript. O objetivo era colocar a mão na massa em relação ao TypeScript e testar se iríamos conseguir desenvolver um projeto Express em TypeScript. A baixo se encontram os requisitos e o passo a passo para a resolução dos mesmos. O projeto também é interessante para provar conhecimentos em queries SQL, pois utilizamos o mysql2 para conectar nossa aplicação ao banco de dados e, o mesmo exige que façamos as queries em hard code, sem o auxílio de um ORM.
 
 # Rodar localmente
 
@@ -35,9 +35,15 @@ Siga o passo a passo para rodar localmente o projeto e testar os requisitos, cas
 
 2. Levar os arquivos **app.ts** e **index.ts** para dentro da pasta src
 
-3. Dentro da pasta **src** criar as principais pastas do modelo MSC: **models**, **services**, e **controllers**
+3. Modificar os scripts no **package.json** para indicar que os arquivos **app.ts** e **index.ts** agora estão dentro de **src**
 
-4. Após isso criar as pastas de suporte: **interface**
+4. Dentro da pasta **src** criar as principais pastas do modelo MSC: **models**, **services**, **controllers**
+
+5. Após isso criar as pastas de suporte: **interfaces**, **routes**, **middlewares**
+
+6. Criar o arquivo **index.ts** dentro de **routes**, onde eu consigo ter um maior controle sobre minhas rotas
+
+7. Já importar o **routes** no **app.ts** para facilitar a criação de rotas futuras
 
 # Requisitos
 
@@ -63,9 +69,41 @@ O objetivo era criar um endpoint onde listasse todos os produtos no banco de dad
       }
     ]
     ```
-Á seguir irei colocar o meu passo a passo para a criaç:
+Á seguir irei colocar o meu passo a passo para realizar este requisito:
 
-1. Criar a pasta **
+1. Criar na pasta **routes** um arquivo chamado **productRou.ts**
+
+2. Configurar o Router da rota:
+    - Importar o router com `import { Router } from 'express';`
+    - Inicializar o router com `const route = Router();`
+    - Exportar o router com `export default route;`
+    - Importar o router da rota no **routes/index** com `import productRou from './productRou';`
+    - Exportar o router da rota no **routes/index** com `export default { productRou };`
+    - Criar a rota (`/products`) no **app.ts** e adicionar as rotas do Router, isso com o código `app.use('/products', routes.productRou);`
+
+3. Criar em **productRou.ts** a rota get
+
+4. Criar o arquivo **productMod.ts** no diretório models
+
+5. Criar e exportar a classe **ProductMod**
+
+6. Criar um método estático e assíncrono para se conectar ao banco de dados, método **getAll()**
+
+7. Escrever a querie SQL responsável por trazer todos os products e aplicar a lógica necessária para a conexão
+
+8. Criar a Interface **IProductGet**
+
+9. Adicionar **IProductGet** ao retorno do método **getAll()**
+
+10. Criar o arquivo **productSer.ts** na pasta **services**
+
+11. Criar a classe **ProductSer**
+
+12. Criar um método estático e assíncrono para se comunicar com o método **getAll()** do model, método **getAll()**
+
+13. Chamar o método **getAll() / model** e retornar o valor retornado em **getAll() / model**
+
+14. Identificar que o retorno de **getAll() / service** também retorna **IProductGet**
 
 <details close>
   <summary>Além disso, as seguintes verificações serão feitas:</summary>
