@@ -1,6 +1,6 @@
 # Boas vindas ao meu repositório do projeto Trybesmith!
 
-O projeto Trybesmith foi o primeiro projeto da Trybe em relação à TrypeScript. O objetivo era colocar a mão na massa em relação ao TypeScript e testar se iríamos conseguir desenvolver um projeto Express em TypeScript. A baixo se encontram os requisitos e o passo a passo para a resolução dos mesmos. O projeto também é interessante para provar conhecimentos em queries SQL, pois utilizamos o mysql2 para conectar nossa aplicação ao banco de dados e, o mesmo exige que façamos as queries em hard code, sem o auxílio de um ORM.
+O projeto Trybesmith foi o primeiro projeto da Trybe em sobre TrypeScript. O objetivo era colocar a mão na massa em relação ao TypeScript e testar se iríamos conseguir desenvolver um projeto Express em TypeScript. O projeto também é interessante para provar conhecimentos em queries SQL, pois utilizamos o mysql2 para conectar nossa aplicação ao banco de dados e, o mesmo exige que façamos as queries em hard code, sem o auxílio de um ORM. O projeto Node.JS, se utiliza do framework Express para fazer o servidor https. Utilizamos um banco de dados SQL, o banco MySQL, se utilizando do mysql2 para realizar a conexão entre o banco de dados e o servidor. Para alem disso, utilizamos o jsonwebtoken para fazer validações de usuário. Isso tudo configurado no amado TypeScript.
 
 # Rodar localmente
 
@@ -51,85 +51,26 @@ Siga o passo a passo para rodar localmente o projeto e testar os requisitos, cas
 
 - O endpoint deve ser acessível através do caminho (`/products`);
 
-O objetivo era criar um endpoint onde listasse todos os produtos no banco de dados, onde o mesmo teria um retorno parecido com este:
+O objetivo era criar um endpoint onde listasse todos os produtos no banco de dados, onde o mesmo tem um retorno parecido com este:
 
-    ```json
-    [
-      {
-        "id": 1,
-        "name": "Poção de cura",
-        "amount": "20 gold",
-        "orderId": null
-      },
-      {
-        "id": 2,
-        "name": "Escudo do Herói",
-        "amount": "100 diamond",
-        "orderId": 1
-      }
-    ]
-    ```
-Á seguir irei colocar o meu passo a passo para realizar este requisito:
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "Poção de cura",
+      "amount": "20 gold",
+      "orderId": null
+    },
+    {
+      "id": 2,
+      "name": "Escudo do Herói",
+      "amount": "100 diamond",
+      "orderId": 1
+    }
+  ]
+  ```
 
-1. Criar na pasta **routes** um arquivo chamado **productRou.ts**
-
-2. Configurar o Router da rota:
-    - Importar o router com `import { Router } from 'express';`
-    - Inicializar o router com `const route = Router();`
-    - Exportar o router com `export default route;`
-    - Importar o router da rota no **routes/index** com `import productRou from './productRou';`
-    - Exportar o router da rota no **routes/index** com `export default { productRou };`
-    - Criar a rota (`/products`) no **app.ts** e adicionar as rotas do Router, isso com o código `app.use('/products', routes.productRou);`
-
-3. Criar em **productRou.ts** a rota get
-
-4. Criar o arquivo **productMod.ts** no diretório models
-
-5. Criar e exportar a classe **ProductMod**
-
-6. Criar um método estático e assíncrono para se conectar ao banco de dados, método **getAll()**
-
-7. Escrever a querie SQL responsável por trazer todos os products e aplicar a lógica necessária para a conexão
-
-8. Criar a Interface **IProductGet**
-
-9. Adicionar **IProductGet** ao retorno do método **getAll()**
-
-10. Criar o arquivo **productSer.ts** na pasta **services**
-
-11. Criar a classe **ProductSer**
-
-12. Criar um método estático e assíncrono para se comunicar com o método **getAll()** do model, método **getAll()**
-
-13. Chamar o método **getAll() / model** e retornar o valor retornado em **getAll() / model**
-
-14. Identificar que o retorno de **getAll() / service** também retorna **IProductGet**
-
-<details close>
-  <summary>Além disso, as seguintes verificações serão feitas:</summary>
-
-  <br>
-
-  > 👉 Para caso os dados sejam enviados corretamente
-  - **[Será validado que é possível listar todos os produtos com sucesso]**
-    - O resultado retornado para listar produtos com sucesso deverá ser conforme exibido abaixo, com um _status http_ `200`:
-    ```json
-    [
-      {
-        "id": 1,
-        "name": "Poção de cura",
-        "amount": "20 gold",
-        "orderId": null
-      },
-      {
-        "id": 2,
-        "name": "Escudo do Herói",
-        "amount": "100 diamond",
-        "orderId": 1
-      }
-    ]
-    ```
-</details>
+Caso deseje testar colocar em prova o requisito, poderá realizar o passo a passo descrito em **Rodar localmente** e verificar a realizção do mesmo.
 
 ---
 
@@ -147,65 +88,60 @@ O objetivo era criar um endpoint onde listasse todos os produtos no banco de dad
   }
 ```
 
-<details close>
-  <summary>Além disso, as seguintes verificações serão feitas:</summary>
+O objetivo era criar um endpoint onde criasse determinado produto no banco de dados, onde o mesmo tem um retorno parecido com este caso o body seja vállido:
 
-  <br>
+  **_status http:_ `201`**
+  ```json
+    {
+      "id": 1,
+      "name": "Poção de cura",
+      "amount": "20 gold",
+    }
+  ```
 
-  > 👉 Para name
-  - **[Será validado que o campo "name" é obrigatório]**
-    - Se o campo "name" não for informado, o resultado retornado deverá ser um  _status http_ `400` e
-    ```json
-      { "message": "\"name\" is required" }
-    ```
+Caso o campo "name" não seja informado, o endpoint deverá ter esta resposta:
 
-  - **[Será validado que o campo "name" tem o tipo string]**
-    - Se o campo "name" não for do tipo `string`, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"name\" must be a string" }
-    ```
+  **_status http:_ `400`**
+  ```json
+    { "message": "\"name\" is required" }
+  ```
 
-  - **[Será validado que o campo "name" é uma string com mais de 2 caracteres]**
-    - Se o campo "name" não for uma string com mais de 2 caracteres, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"name\" length must be at least 3 characters long" }
-    ```
+Caso o campo "name" não seja do tipo string, o endpoint deverá ter esta resposta:
 
-  <br>
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"name\" must be a string" }
+  ```
 
-  > 👉 Para amount
-  - **[Será validado que o campo "amount" é obrigatório]**
-    - Se o campo "amount" não for informado, o resultado retornado deverá ser um _status http_ `400` e
-    ```json
-      { "message": "\"amount\" is required" }
-    ```
+Caso o campo "name" tenha menos de 3 caracteres, o endpoint deverá ter esta resposta:
 
-  - **[Será validado que o campo "amount" tem o tipo string]**
-    - Se o campo "amount" não for do tipo `string`, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"amount\" must be a string" }
-    ```
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"name\" length must be at least 3 characters long" }
+  ```
 
-  - **[Será validado que o campo "amount" é uma string com mais de 2 caracteres]**
-    - Se o campo "amount" não for uma string com mais de 2 caracteres, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"amount\" length must be at least 3 characters long" }
-    ```
+Caso o campo "amount" não seja informado, o endpoint deverá ter esta resposta:
 
-  <br>
+  **_status http:_ `400`**
+  ```json
+    { "message": "\"amount\" is required" }
+  ```
 
-  > 👉 Para caso os dados sejam enviados corretamente
-  - **[Será validado que é possível cadastrar um produto com sucesso]**
-    - O resultado retornado para cadastrar o produto com sucesso deverá ser conforme exibido abaixo, com um _status http_ `201`:
-    ```json
-      {
-        "id": 1,
-        "name": "Poção de cura",
-        "amount": "20 gold",
-      }
-    ```
+Caso o campo "amount" não seja do tipo string, o endpoint deverá ter esta resposta:
 
-</details>
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"amount\" must be a string" }
+  ```
+
+Caso o campo "amount" tenha menos de 3 caracteres, o endpoint deverá ter esta resposta:
+
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"amount\" length must be at least 3 characters long" }
+  ```
+
+Caso deseje testar colocar em prova o requisito, poderá realizar o passo a passo descrito em **Rodar localmente** e verificar a realizção do mesmo.
 
 ---
 
