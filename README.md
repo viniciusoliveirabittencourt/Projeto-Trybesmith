@@ -51,8 +51,9 @@ Siga o passo a passo para rodar localmente o projeto e testar os requisitos, cas
 
 - O endpoint deve ser acessível através do caminho (`/products`);
 
-O objetivo era criar um endpoint onde listasse todos os produtos no banco de dados, onde o mesmo tem um retorno parecido com este:
+O objetivo foi criar um endpoint onde listasse todos os produtos no banco de dados, onde o mesmo tem um retorno parecido com este:
 
+  **_status http:_ `200`**
   ```json
   [
     {
@@ -88,7 +89,7 @@ Caso deseje testar colocar em prova o requisito, poderá realizar o passo a pass
   }
 ```
 
-O objetivo era criar um endpoint onde criasse determinado produto no banco de dados, onde o mesmo tem um retorno parecido com este caso o body seja vállido:
+O objetivo foi criar um endpoint onde criasse determinado produto no banco de dados, onde o mesmo tem um retorno parecido com este caso o body seja vállido:
 
   **_status http:_ `201`**
   ```json
@@ -99,47 +100,60 @@ O objetivo era criar um endpoint onde criasse determinado produto no banco de da
     }
   ```
 
-Caso o campo "name" não seja informado, o endpoint deverá ter esta resposta:
+<details close>
+<summary>Regras de négocio:</summary>
+
+<br>
+
+### Regras de négocio para verificar o campo "name" do body da requisição
+
+Caso o campo "name" não seja informado, o endpoint irá retornar esta resposta:
 
   **_status http:_ `400`**
   ```json
     { "message": "\"name\" is required" }
   ```
 
-Caso o campo "name" não seja do tipo string, o endpoint deverá ter esta resposta:
+Caso o campo "name" não seja do tipo string, o endpoint irá retornar esta resposta:
 
   **_status http:_ `422`**
   ```json
     { "message": "\"name\" must be a string" }
   ```
 
-Caso o campo "name" tenha menos de 3 caracteres, o endpoint deverá ter esta resposta:
+Caso o campo "name" tenha menos de 3 caracteres, o endpoint irá retornar esta resposta:
 
   **_status http:_ `422`**
   ```json
     { "message": "\"name\" length must be at least 3 characters long" }
   ```
+<br>
 
-Caso o campo "amount" não seja informado, o endpoint deverá ter esta resposta:
+### Regras de négocio para verificar o campo "amount" do body da requisição
+
+Caso o campo "amount" não seja informado, o endpoint irá retornar esta resposta:
 
   **_status http:_ `400`**
   ```json
     { "message": "\"amount\" is required" }
   ```
 
-Caso o campo "amount" não seja do tipo string, o endpoint deverá ter esta resposta:
+Caso o campo "amount" não seja do tipo string, o endpoint irá retornar esta resposta:
 
   **_status http:_ `422`**
   ```json
     { "message": "\"amount\" must be a string" }
   ```
 
-Caso o campo "amount" tenha menos de 3 caracteres, o endpoint deverá ter esta resposta:
+Caso o campo "amount" tenha menos de 3 caracteres, o endpoint irá retornar esta resposta:
 
   **_status http:_ `422`**
   ```json
     { "message": "\"amount\" length must be at least 3 characters long" }
   ```
+</details>
+
+<br>
 
 Caso deseje testar colocar em prova o requisito, poderá realizar o passo a passo descrito em **Rodar localmente** e verificar a realizção do mesmo.
 
@@ -161,105 +175,122 @@ Caso deseje testar colocar em prova o requisito, poderá realizar o passo a pass
 }
 ```
 
-<details close>
-  <summary>Além disso, as seguintes verificações serão feitas:</summary>
+O objetivo foi criar um endpoint onde seria possível cadastrar uma pessoa usuária, conforme a interface explícitada, caso o body sejá válido, o endpoint irá retornar uma chave jsonwebtoken conforme modelo a seguir:
 
-  <br>
-
-  > 👉 Para username
-  - **[Será validado que o campo "username" é obrigatório]**
-    - Se a requisição não tiver o campo "username", o resultado retornado deverá ser um _status http_ `400` e
-    ```json
-      { "message": "\"username\" is required" }
-    ```
-
-  - **[Será validado que o campo "username" tem o tipo string]**
-    - Se o campo "username" não for do tipo `string`, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"username\" must be a string" }
-    ```
-
-  - **[Será validado que o campo "username" é uma string com mais de 2 caracteres]**
-    - Se o campo "username" não for do tipo `string` com mais de 2 caracteres, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"username\" length must be at least 3 characters long" }
-    ```
-
-  <br>
-
-  > 👉 Para classe
-  - **[Será validado que o campo "classe" é obrigatório]**
-    - Se a requisição não tiver o campo "classe", o resultado retornado deverá ser um _status http_ `400` e
-    ```json
-      { "message": "\"classe\" is required" }
-    ```
-
-  - **[Será validado que o campo "classe" tem o tipo string]**
-    - Se o campo "classe" não for do tipo `string`, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"classe\" must be a string" }
-    ```
-
-  - **[Será validado que o campo "classe" é uma string com mais de 2 caracteres]**
-    - Se o campo "classe" não for do tipo `string` com mais de 2 caracteres, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"classe\" length must be at least 3 characters long" }
-    ```
-
-  <br>
-
-  > 👉 Para level
-  - **[Será validado que o campo "level" é obrigatório]**
-    - Se a pessoa usuária não tiver o campo "level", o resultado retornado deverá ser um _status http_ `400` e
-    ```json
-      { "message": "\"level\" is required" }
-    ```
-
-  - **[Será validado que o campo "level" tem o tipo number]**
-    - Se o campo "level" não for do tipo `number`, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"level\" must be a number" }
-    ```
-
-  - **[Será validado que o campo "level" deve ser um número maior que 0]**
-    - Se o campo "level" não for do tipo `number` maior que 0, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"level\" must be greater than or equal to 1" }
-    ```
-
-  <br>
-
-  > 👉 Para password
-  - **[Será validado que o campo "password" é obrigatório]**
-    - Se a requisição não tiver o campo "password", o resultado retornado deverá ser um _status http_ `400` e
-    ```json
-      { "message": "\"password\" is required" }
-    ```
-
-  - **[Será validado que o campo "password" tem o tipo string]**
-    - Se o campo "password" não for do tipo `string`, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"password\" must be a string" }
-    ```
-
-  - **[Será validado que o campo "password" é uma string com 8 ou mais caracteres]**
-    - Se o campo "password" não for do tipo `string` com mais de 8 caracteres, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"password\" length must be at least 8 characters long" }
-    ```
-
-  <br>
-
-  > 👉 Para caso os dados sejam enviados corretamente
-  - **[Será validado que é possível cadastrar a pessoa usuária com sucesso]**
-    - Se a pessoa usuária for cadastrada com sucesso, o resultado deverá ser conforme o exibido abaixo, com um _status http_ `201` e retornando um _token_:
-    ```json
+  **_status http:_ `201`**
+  ```json
     {
       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
     }
-    ```
+  ```
+<details>
+<summary>Regras de négocio:</summary>
+
+<br>
+
+### Regras de négocio para o campo "username" do body da requisição
+
+Caso o campo "username" não seja informado, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `400`**
+  ```json
+    { "message": "\"username\" is required" }
+  ```
+
+Caso o campo "username" não seja do tipo string, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"username\" must be a string" }
+  ```
+
+Caso o campo "username" tenha menos de 3 caracteres, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"username\" length must be at least 3 characters long" }
+  ```
+
+<br>
+
+### Regras de négocio para o campo "classe" do body da requisição
+
+Caso o campo "classe" não seja informado, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `400`**
+  ```json
+    { "message": "\"classe\" is required" }
+  ```
+
+Caso o campo "classe" não seja do tipo string, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"classe\" must be a string" }
+  ```
+
+Caso o campo "classe" tenha menos de 3 caracteres, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"classe\" length must be at least 3 characters long" }
+  ```
+
+<br>
+
+### Regras de négocio para o campo "password" do body da requisição
+
+Caso o campo "password" não seja informado, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `400`**
+  ```json
+    { "message": "\"password\" is required" }
+  ```
+
+Caso o campo "password" não seja do tipo string, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"password\" must be a string" }
+  ```
+
+Caso o campo "password" tenha menos de 3 caracteres, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"password\" length must be at least 8 characters long" }
+  ```
+
+<br>
+
+### Regras de négocio para o campo "level" do body da requisição
+
+Caso o campo "level" não seja informado, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `400`**
+  ```json
+    { "message": "\"level\" is required" }
+  ```
+
+Caso o campo "level" não seja do tipo number, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"level\" must be a number" }
+  ```
+
+Caso o campo "level" seja menor que 1, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"level\" must be greater than or equal to 1" }
+  ```
 
 </details>
+
+<br>
+
+Caso deseje testar colocar em prova o requisito, poderá realizar o passo a passo descrito em **Rodar localmente** e verificar a realizção do mesmo.
 
 ---
 
@@ -268,38 +299,27 @@ Caso deseje testar colocar em prova o requisito, poderá realizar o passo a pass
 - O endpoint deve ser acessível através do caminho (`/orders`).
 - Essa rota deve retornar todos os pedidos e os `id`s dos produtos associados a estes.
 
-✨ **Dica:** São os produtos que contém os `id`s dos pedidos.
+O objetivo foi criar um endpoint com uma regra de négocio, onde o mesmo pegaria a tabela de orders e adicionaria uma chave com os products associados da tabela de products. O retorno deveria ser parecido com o este:
 
-✨ **Dica:** Você pode fazer a agregação direto na linguagem de programação, pegando pedidos e produtos separadamente e os juntando no TypeScript, ao invés de tentar criar uma complexa query em SQL.
+  **_status http:_ `200`**
+  ```json
+    [
+      {
+        "id": 1,
+        "userId": 2,
+        "productsIds": [1, 2]
+      },
+      {
+        "id": 2,
+        "userId": 2,
+        "productsIds": [3, 4]
+      }
+    ]
+  ```
 
-<details close>
-  <summary>Além disso, as seguintes verificações serão feitas:</summary>
-
-  <br>
-
-  > 👉 Para orders
-
-  - **[Será validado que é possível listar todos os pedidos com sucesso]**
-    - Quando houver mais de um pedido, o resultado retornado para listar pedidos com sucesso deverá ser conforme exibido abaixo, com um _status http_ `200`:
-    ```json
-      [
-        {
-          "id": 1,
-          "userId": 2,
-          "productsIds": [1, 2]
-        },
-        {
-          "id": 2,
-          "userId": 2,
-          "productsIds": [3, 4]
-        }
-      ]
-    ```
-</details>
+Caso deseje testar colocar em prova o requisito, poderá realizar o passo a passo descrito em **Rodar localmente** e verificar a realizção do mesmo.
 
 ---
-
-## Requisito Bônus
 
 ## 5 - Crie um endpoint para o login de pessoas usuárias
 
@@ -317,49 +337,54 @@ Caso deseje testar colocar em prova o requisito, poderá realizar o passo a pass
   }
 ```
 
-**⚠️ Na configuração do `JWT` não use variáveis de ambientes para não ter conflito com o avaliador.**
+O objetivo foi criar um endpoint de login, onde caso o body da requisição estivesse correto, ele validaria o email e a senha, caso ambos estivessem corretos, ele irá retornar um token jsonwebtoken:
 
-<details close>
- <summary>Além disso, as seguintes verificações serão feitas:</summary>
-
-  <br>
-
-  > 👉 Para caso haja problemas no login
-  - **[Será validado que o campo "username" é enviado]**
-    - Se o _login_ não tiver o campo "username", o resultado retornado deverá ser um _status http_ `400` e
-    ```json
-      { "message": "\"username\" is required" }
-    ```
-
-  - **[Será validado que o campo "password" é enviado]**
-    - Se o _login_ não tiver o campo "password", o resultado retornado deverá ser um _status http_ `400`
-    ```json
-      { "message": "\"password\" is required" }
-    ```
-
-  - **[Será validado que não é possível fazer login com um username inválido]**
-    - Se o _login_ tiver o username inválido, o resultado retornado deverá ser um _status http_ `401` e
-    ```json
-      { "message": "Username or password invalid" }
-    ```
-
-  - **[Será validado que não é possível fazer login com uma senha inválida]**
-    - Se o login tiver a senha inválida, o resultado retornado deverá ser um _status http_ `401` e
-    ```json
-      { "message": "Username or password invalid" }
-    ```
-
-  <br>
-
-  > 👉 Para caso os dados sejam enviados corretamente
-  - **[Será validado que é possível fazer login com sucesso]**
-    - Se o login foi feito com sucesso, o resultado deverá ser um _status http_ `200` e deverá retornar um _token_:
-    ```json
+  **_status http:_ `200`**
+  ```json
     {
       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
     }
-    ```
+  ```
+
+<details close>
+ <summary>Regras de négocio:</summary>
+
+  <br>
+
+  ### Regras de négocio para o campo "username" do body da requisição
+
+  Caso o campo "username" não seja informado, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `400`**
+  ```json
+    { "message": "\"username\" is required" }
+  ```
+
+  Caso o campo "username" seja inválido, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `401`**
+  ```json
+    { "message": "Username or password invalid" }
+  ```
+
+  ### Regras de négocio para o campo "password" do body da requisição
+
+  Caso o campo "password" não seja informado, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `400`**
+  ```json
+    { "message": "\"password\" is required" }
+  ```
+
+  Caso o campo "password" seja inválido, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `401`**
+  ```json
+    { "message": "Username or password invalid" }
+  ```
 </details>
+
+Caso deseje testar colocar em prova o requisito, poderá realizar o passo a passo descrito em **Rodar localmente** e verificar a realizção do mesmo.
 
 ---
 
@@ -369,7 +394,7 @@ Caso deseje testar colocar em prova o requisito, poderá realizar o passo a pass
 
 - Um pedido só pode ser criado caso a pessoa usuária esteja logada e o token `JWT` validado;
 
-- Os pedidos enviados devem ser salvos na tabela `Orders` do banco de dados, salvando `id` da pessoa usuária da aplicação que fez esse pedido. 
+- Os pedidos enviados devem ser salvos na tabela `Orders` do banco de dados, salvando `id` da pessoa usuária da aplicação que fez esse pedido.
 
 - A tabela `Products` também deve ser alterada, atualizando todos os produtos com os `id` incluídos na chave `productsIds` da requisição, e adicionando nesses produtos o `orderId` do pedido recém criado;
 
@@ -380,12 +405,22 @@ Caso deseje testar colocar em prova o requisito, poderá realizar o passo a pass
   }
 ```
 
-**⚠️ Ao cadastrar um pedido, lembre-se de atualizar os respectivos produtos no banco de dados, incluindo neles o número do pedido criado.**
+O objetivo foi criar um endpoint para o cadastro de pedidos, onde o mesmo tem uma verificação para saber se o usuário é válido e se ele está logado corretamente, caso tudo ocorra bem na validação ele irá validar o body da requisição, com tudo válidado corretamente, ele irá cadastrar o pedido em orders e terá um retorno parecido com este:
+
+  **_status http:_ `200`**
+  ```json
+    {
+      "userId": 1,
+      "productsIds": [1, 2]
+    }
+  ```
 
 <details close>
   <summary>Além disso, as seguintes verificações serão feitas:</summary>
 
   <br>
+
+  ### Regras de négocio para aut
 
   > 👉 Para token
   - **[Será validado que não é possível cadastrar pedidos sem token]**
