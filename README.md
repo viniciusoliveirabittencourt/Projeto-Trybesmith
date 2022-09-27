@@ -384,6 +384,8 @@ O objetivo foi criar um endpoint de login, onde caso o body da requisição esti
   ```
 </details>
 
+<br>
+
 Caso deseje testar colocar em prova o requisito, poderá realizar o passo a passo descrito em **Rodar localmente** e verificar a realizção do mesmo.
 
 ---
@@ -416,66 +418,54 @@ O objetivo foi criar um endpoint para o cadastro de pedidos, onde o mesmo tem um
   ```
 
 <details close>
-  <summary>Além disso, as seguintes verificações serão feitas:</summary>
+  <summary>Regras de négocio:</summary>
 
   <br>
 
-  ### Regras de négocio para aut
+  ### Regras de négocio para autenticação
 
-  > 👉 Para token
-  - **[Será validado que não é possível cadastrar pedidos sem token]**
-    - Se o token não for informado, o resultado retornado deverá ser um _status http_ `401` e
-    ```json
-      { "message": "Token not found" }
-    ```
+  Caso o token não esteja no header em uma chave "authorization", o endpoint irá retornar esta resposta:
 
-  - **[Será validado que não é possível cadastrar um pedido com token inválido]**
-    - Se o token informado não for válido, o resultado retornado deverá ser um _status http_ `401` e
-    ```json
-      { "message": "Invalid token" }
-    ```
+  **_status http:_ `401`**
+  ```json
+    { "message": "Token not found" }
+  ```
 
-  <br>
+  Caso o token seja inválido, o endpoint irá retornar esta resposta:
 
-  > 👉 Para products
-  - **[Será validado que o campo "productsIds" é obrigatório]**
-    - Se o corpo da requisição não possuir o campo "productsIds", o resultado retornado deverá ser um _status http_ `400` e
-    ```json
-      { "message": "\"productsIds\" is required" }
-    ```
-
-  - **[Será validado que não é possível criar um pedido com o campo "productsIds" não sendo um array]**
-    - Se o valor do campo "productsIds" não for um array, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"productsIds\" must be an array" }
-    ```
-
-  - **[Será validado que não é possível cadastrar um pedido se o campo "productsIds" for um array vazio]**
-    - Se o campo "productsIds" possuir um array vazio, o resultado retornado deverá ser um _status http_ `422` e
-    ```json
-      { "message": "\"productsIds\" must include only numbers" }
-    ```
+  **_status http:_ `401`**
+  ```json
+    { "message": "Invalid token" }
+  ```
 
   <br>
 
-  > 👉 Para caso os dados sejam enviados corretamente
-  - **[Será validado que é possível criar um pedido com sucesso com 1 item]**
-    - O resultado retornado para cadastrar um pedido com sucesso deverá ser conforme exibido abaixo, com um _status http_ `201`:
-    ```json
-      {
-        "userId": 1,
-        "productsIds": [1],
-      }
-    ```
+  ### Regras de négocio para o campo "productsIds" do body da requisição
 
-  - **[Será validado que é possível criar um pedido com sucesso com vários itens]**
-    - O resultado retornado para cadastrar um pedido com sucesso deverá ser conforme exibido abaixo, com um _status http_ `201`:
-    ```json
-      {
-        "userId": 1,
-        "productsIds": [1, 2]
-      }
-    ```
+  Caso o campo "productsIds" não seja informado, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `400`**
+  ```json
+    { "message": "\"productsIds\" is required" }
+  ```
+
+  Caso o campo "productsIds" não seja do tipo array, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"productsIds\" must be a array" }
+  ```
+
+  Caso o campo "productsIds" seja um array vazio, o endpoint irá retornar esta resposta:
+
+  **_status http:_ `422`**
+  ```json
+    { "message": "\"productsIds\" must include only numbers" }
+  ```
 </details>
+
+<br>
+
+Caso deseje testar colocar em prova o requisito, poderá realizar o passo a passo descrito em **Rodar localmente** e verificar a realizção do mesmo.
 
 ---
